@@ -6,29 +6,33 @@ package com.garytokman.g_tokman_lab1.model;
  */
 public class Calculator {
 
-    // Fields
-    private int mClear;
-    private String mAdd;
-    private String mSubtract;
-    private String mMultiply;
-    private String mDivide;
-    private String mTotal;
-    private String[] mInput;
+    private int mTotal;
     private int mFirstInt;
     private int mSecondInt;
-    private int mCurrentValue;
+    private String mOperator;
 
-    // Clear
-    public int getClear() {
-
-        // Clear Temp values
+    public Calculator() {
+        mTotal = 0;
         mFirstInt = 0;
         mSecondInt = 0;
-
-        return 0;
+        mOperator = null;
     }
 
-    // Temp
+    // Operator
+    public String getOperator() {
+        return mOperator;
+    }
+
+    public void setOperator(String operator) {
+        mOperator = operator;
+    }
+
+    // Total
+    public int getTotal() {
+        return mTotal;
+    }
+
+    // Temp Integers
     public int getFirstInt() {
         return mFirstInt;
     }
@@ -45,38 +49,30 @@ public class Calculator {
         mSecondInt = secondInt;
     }
 
-    // Operators
-    public String getAdd() {
-        return "+";
-    }
+    public void setTotal(String operator, int firstInt, int secondInt) {
 
-    public String getSubtract() {
-        return "-";
-    }
-
-    public String getMultiply() {
-        return "*";
-    }
-
-    public String getDivide() {
-        return "/";
-    }
-
-    // Get total
-    public String getTotal() {
-
-        for (String value : getInput()) {
-            // Logic to pull out the in and return total
+        switch (operator) {
+            case "+":
+                mTotal = firstInt + secondInt;
+                break;
+            case "-":
+                mTotal = firstInt - secondInt;
+                break;
+            case "*":
+                mTotal = firstInt * secondInt;
+                break;
+            case "/":
+                mTotal = firstInt / secondInt;
+            case "=":
+                this.getTotal();
+                break;
+            default:
+                // Clear total
+                this.setFirstInt(0);
+                this.setSecondInt(0);
+                mTotal = 0;
         }
 
-        return mTotal;
     }
 
-    public String[] getInput() {
-        return mInput;
-    }
-
-    public void setInput(String[] input) {
-        mInput = input;
-    }
 }

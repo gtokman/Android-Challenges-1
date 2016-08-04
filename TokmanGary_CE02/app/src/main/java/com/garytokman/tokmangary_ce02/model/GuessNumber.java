@@ -9,6 +9,7 @@ public class GuessNumber {
 
     // Fields
     private Random mRandomNumber = new Random();
+    private int mNumberOfGuesses;
 
 
     // Get / Set

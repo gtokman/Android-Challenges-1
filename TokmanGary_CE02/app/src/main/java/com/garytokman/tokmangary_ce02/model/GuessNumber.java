@@ -16,5 +16,4 @@ public class GuessNumber {
         return mRandomNumber.nextInt(10); // Does not include upper bound 0 - 9
     }
 
-
 }

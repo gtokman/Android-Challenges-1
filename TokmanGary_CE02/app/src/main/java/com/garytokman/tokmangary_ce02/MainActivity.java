@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int mUserPoints = 0;
     private int[] mWinningNumbers = new int[4];
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void generateFourRandomNumbers() {
         for (int i = 0; i < mWinningNumbers.length; i++) {
             mWinningNumbers[i] = mGuessNumber.getRandomNumber();
-            Log.e(TAG, "The winning numbers are" + mWinningNumbers[i]);
+            Log.e(TAG, "The winning numbers are " + mWinningNumbers[i]);
         }
     }
 
@@ -114,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void checker(EditText editText, int userNumber, int index) {
+        // Check against winning
         if (userNumber == mWinningNumbers[index]) {
             editText.setBackgroundColor(Color.GREEN);
             mUserPoints++;
@@ -130,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void checkNumberOfGuesses() {
         if (mNumberOfGuesses <= 0) {
-            showAlert("You Lost!", "Sorry try again!");
+            showAlert("You Lost!", "Sorry try again! Click ok to play again!");
         } else if (mUserPoints == 4) {
             showAlert("Congrats you won!", "Click ok to play again!");
         } else {
@@ -138,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private boolean showAlert(String title, String message) {
+    public boolean showAlert(String title, String message) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
         alertDialog.setTitle(title);
@@ -164,8 +166,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    private void showSnackBar(String message) {
-        View view = this.findViewById(android.R.id.content);
+    public void showSnackBar(String message) {
+        View view = findViewById(android.R.id.content);
         Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
         snackbar.setAction("OK", new View.OnClickListener() {
             @Override

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import com.garytokman.tokmangary_ce02.model.GuessNumber;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "MainActivity";
     private EditText mEditText1;
     private EditText mEditText2;
     private EditText mEditText3;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mGuessButton;
     private GuessNumber mGuessNumber;
     private int mNumberOfGuesses = 4;
+    private int mUserPoints = 0;
     private int[] mWinningNumbers = new int[4];
 
     @Override
@@ -47,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void generateFourRandomNumbers() {
         for (int i = 0; i < mWinningNumbers.length; i++) {
             mWinningNumbers[i] = mGuessNumber.getRandomNumber();
-            System.out.printf("The winning numbers are %s:", mWinningNumbers[i]);
+            Log.e(TAG, "The winning numbers are" + mWinningNumbers[i]);
         }
     }
 
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             // Hide keyboard
             hideKeyboard();
+            mUserPoints = 0;
 
             // Get user values
             String textInput1 = mEditText1.getText().toString();
@@ -84,13 +88,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 int thirdField = Integer.parseInt(textInput3);
                 checker(mEditText3, thirdField, 2);
-
             }
 
             if (checkEmptyEditText(textInput4)) {
                 showSnackBar(snackMessage);
             } else {
-
                 int fourthField = Integer.parseInt(textInput4);
                 checker(mEditText4, fourthField, 3);
             }
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         // Check keyboard
-        if(inputMethodManager.isAcceptingText()) {
+        if (inputMethodManager.isAcceptingText()) {
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
     }
@@ -114,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void checker(EditText editText, int userNumber, int index) {
         if (userNumber == mWinningNumbers[index]) {
             editText.setBackgroundColor(Color.GREEN);
+            mUserPoints++;
         } else if (userNumber < mWinningNumbers[index]) {
             editText.setBackgroundColor(Color.BLUE);
             mNumberOfGuesses--;
@@ -126,16 +129,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void checkNumberOfGuesses() {
-        if (mNumberOfGuesses == 0) {
-            showAlert("You Lost!", "Sorry try again, 4 new numbers are being generated!");
-            generateFourRandomNumbers();
-            mNumberOfGuesses = 0;
+        if (mNumberOfGuesses <= 0) {
+            showAlert("You Lost!", "Sorry try again!");
+        } else if (mUserPoints == 4) {
+            showAlert("Congrats you won!", "Click ok to play again!");
         } else {
-            showSnackBar("You have" + mNumberOfGuesses + " left!");
+            showSnackBar("You have " + mNumberOfGuesses + " guesses left!");
         }
     }
 
-    private void showAlert(String title, String message) {
+    private boolean showAlert(String title, String message) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
         alertDialog.setTitle(title);
@@ -143,9 +146,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                // Do something
+                // Restart the game
+                mEditText1.setText("");
+                mEditText2.setText("");
+                mEditText3.setText("");
+                mEditText4.setText("");
+                mEditText1.setBackgroundColor(Color.TRANSPARENT);
+                mEditText2.setBackgroundColor(Color.TRANSPARENT);
+                mEditText3.setBackgroundColor(Color.TRANSPARENT);
+                mEditText4.setBackgroundColor(Color.TRANSPARENT);
+                mNumberOfGuesses = 4;
+                mUserPoints = 0;
+                generateFourRandomNumbers();
             }
         }).show();
+
+        return true;
     }
 
     private void showSnackBar(String message) {

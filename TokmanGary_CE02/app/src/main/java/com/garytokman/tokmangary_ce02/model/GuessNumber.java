@@ -9,12 +9,12 @@ public class GuessNumber {
 
     // Fields
     private Random mRandomNumber = new Random();
-    private int mNumberOfGuesses;
 
 
     // Get / Set
     public int getRandomNumber() {
         return mRandomNumber.nextInt(10); // Does not include upper bound 0 - 9
     }
+
 
 }

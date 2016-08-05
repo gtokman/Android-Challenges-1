@@ -53,6 +53,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mWinningNumbers[i] = mGuessNumber.getRandomNumber();
             Log.e(TAG, "The winning numbers are " + mWinningNumbers[i]);
         }
+
+        // Reset guess
+        mNumberOfGuesses = 4;
+        mUserPoints = 0;
+
     }
 
     @Override
@@ -119,19 +124,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (userNumber == mWinningNumbers[index]) {
             editText.setBackgroundColor(Color.GREEN);
             mUserPoints++;
+            checkNumberOfGuesses();
         } else if (userNumber < mWinningNumbers[index]) {
             editText.setBackgroundColor(Color.BLUE);
             mNumberOfGuesses--;
+            checkNumberOfGuesses();
         } else {
             editText.setBackgroundColor(Color.RED);
             mNumberOfGuesses--;
+            checkNumberOfGuesses();
         }
-
-        checkNumberOfGuesses();
+        
     }
 
     private void checkNumberOfGuesses() {
-        if (mNumberOfGuesses <= 0) {
+        if (mNumberOfGuesses == 0) {
             showAlert("You Lost!", "Sorry try again! Click ok to play again!");
         } else if (mUserPoints == 4) {
             showAlert("Congrats you won!", "Click ok to play again!");
@@ -140,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public boolean showAlert(String title, String message) {
+    private boolean showAlert(String title, String message) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
         alertDialog.setTitle(title);
@@ -157,8 +164,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mEditText2.setBackgroundColor(Color.TRANSPARENT);
                 mEditText3.setBackgroundColor(Color.TRANSPARENT);
                 mEditText4.setBackgroundColor(Color.TRANSPARENT);
-                mNumberOfGuesses = 4;
-                mUserPoints = 0;
                 generateFourRandomNumbers();
             }
         }).show();
@@ -166,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    public void showSnackBar(String message) {
+    private void showSnackBar(String message) {
         View view = findViewById(android.R.id.content);
         Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
         snackbar.setAction("OK", new View.OnClickListener() {

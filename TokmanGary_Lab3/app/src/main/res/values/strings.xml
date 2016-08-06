@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">TokmanGary_Lab3</string>
+    <string name="what_apos_s_your_story">What\'s your story?</string>
+    <string name="submit">Submit</string>
+    <string name="select_an_image">Select an image</string>
+    <string name="complete_this_story">Complete this story</string>
+    <string name="enter_your_name">Enter your name</string>
 </resources>

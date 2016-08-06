@@ -12,9 +12,10 @@ public class Story implements Parcelable {
     private String mStory;
     private String mImage;
 
-    public Story(String name, String story) {
+    public Story(String name, String story, String image) {
         mName = name;
         mStory = story;
+        mImage = image;
     }
 
     public String getName() {
@@ -43,10 +44,10 @@ public class Story implements Parcelable {
 
     @Override
     public String toString() {
-        return "My name is " + mName + " and this is my story: " + mStory;
+        return "My name is " + mName + " and this is my story... \n\n" + mStory;
     }
 
-    // Allow object to be palatable requires to serialize
+    // Allow object to be Parcelable required to pass objects in intents
     @Override
     public int describeContents() {
         return 0;

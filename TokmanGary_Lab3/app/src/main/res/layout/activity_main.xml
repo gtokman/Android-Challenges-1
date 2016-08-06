@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Please complete this form"
+        android:text="@string/complete_this_story"
         android:textSize="24sp"
         android:textColor="@android:color/darker_gray"/>
 
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:hint="Please enter your name"
+        android:hint="@string/enter_your_name"
         android:textAlignment="center"/>
 
     <LinearLayout
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Select an image"
+            android:text="@string/select_an_image"
             android:textColor="#fff"
             android:textSize="18sp"/>
 
@@ -52,7 +52,8 @@
             android:layout_marginTop="10dp"
             android:layout_weight="3"
             android:orientation="horizontal"
-            android:id="@+id/radioGroup">
+            android:id="@+id/radioGroup"
+            android:checkedButton="@+id/radioButton">
 
             <RadioButton
                 android:id="@+id/radioButton"
@@ -100,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:hint="What&apos;s your story?"
+                android:hint="@string/what_apos_s_your_story"
                 android:nestedScrollingEnabled="false"/>
 
             </ScrollView>
@@ -108,7 +109,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Submit"
+                android:text="@string/submit"
                 android:id="@+id/submitButton"
                 android:layout_gravity="center_horizontal"
                 android:textColor="#fff"

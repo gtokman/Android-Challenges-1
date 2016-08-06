@@ -14,7 +14,7 @@ import com.garytokman.tokmangary_lab3.model.Story;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String USER_STORY = "USER_STORY";
+    public static final String USER_STORY = "USER_STORY";
     // Fields
     private EditText mNameEditText;
     private EditText mStoryEditText;
@@ -33,10 +33,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mStoryEditText = (EditText) findViewById(R.id.storyEditText);
         mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         mSubmitButton = (Button) findViewById(R.id.submitButton);
+        mRadioButton = (RadioButton) findViewById(R.id.radioButton);
         mSubmitButton.setOnClickListener(this);
-    }
-
-    private void selectAnImage() {
 
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
@@ -45,32 +43,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 // Get the radio button
                 mRadioButton = (RadioButton) findViewById(i);
-
-                if (mRadioButton.isChecked()) {
-                    String selectedImage = mRadioButton.getText().toString();
-                    mRadioButton.getText().toString();
-                    mStory.setImage(selectedImage);
-                }
             }
         });
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        // Reset fields
+        mNameEditText.setText("");
+        mStoryEditText.setText("");
+    }
+
+    @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.submitButton) {
+        int viewId = view.getId();
+        if (viewId == R.id.submitButton) {
 
-           if  (checkEmptyFields(mNameEditText) && checkEmptyFields(mStoryEditText)) {
-               Toast.makeText(MainActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-           } else {
-            // Create intent
-            // Pass data to new view
-               this.selectAnImage();
-               mStory = new Story(mNameEditText.getText().toString(), mStoryEditText.getText().toString());
+            if (checkEmptyFields(mNameEditText) && checkEmptyFields(mStoryEditText)
+                    || checkEmptyFields(mStoryEditText) || checkEmptyFields(mNameEditText)) {
+                // Toast
+                Toast.makeText(MainActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            } else {
+                // Init story
+                mStory = new Story(mNameEditText.getText().toString(), mStoryEditText.getText().toString(), mRadioButton.getText().toString());
 
-               Intent intent = new Intent();
-               intent.putExtra(USER_STORY, mStory);
-               startActivity(intent);
-           }
+                // Create intent
+                // Pass data to new view
+                Intent intent = new Intent(this, StoryActivity.class);
+                intent.putExtra(USER_STORY, mStory);
+                startActivity(intent);
+            }
         }
     }
 

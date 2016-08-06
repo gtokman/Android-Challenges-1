@@ -13,20 +13,31 @@
     android:layout_weight="1">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         android:id="@+id/imageView"
         android:layout_gravity="center_horizontal"
         android:src="@android:drawable/sym_def_app_icon"
-        android:layout_weight="0.25"/>
+       />
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="New Text"
-        android:id="@+id/storyText"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.75"
-        android:textSize="24sp"
-        android:textAlignment="center"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent luctus ligula nulla, id pellentesque tortor hendrerit aliquam. Aenean vitae ullamcorper erat, eu iaculis ligula. Mauris bibendum pellentesque arcu, in mollis enim lobortis id. Ut placerat vitae massa id hendrerit. Vivamus vitae nunc ut augue pulvinar mollis eget ut tellus. Sed non ligula nec diam posuere venenatis quis malesuada lectus. Nullam nunc libero, sollicitudin vel lacus at, mattis vehicula orci.
+
+Pellentesque elit lacus, ornare vel arcu vitae, mattis blandit nunc. Vestibulum at posuere lorem. Pellentesque interdum sit amet tortor id lacinia. Maecenas eget imperdiet orci. Nunc vitae neque tellus. In a ultrices eros. Nam rhoncus metus felis, et pretium urna tempor eget.
+
+Nulla dictum luctus nisi sit amet ornare. Quisque nunc est, condimentum euismod sem vitae, congue vestibulum diam. Proin ultricies in tortor et elementum. Phasellus sit amet sapien id neque ultricies posuere volutpat id quam. Nunc malesuada nunc id elementum laoreet. Integer ligula sapien, viverra nec arcu eu, sagittis fringilla velit. Aenean a justo et odio imperdiet mattis. Fusce sit amet porta ipsum, at dapibus elit. Aenean imperdiet vestibulum justo vel scelerisque. Integer et velit ac nisi viverra mollis ut faucibus nulla. Aliquam ac pretium sapien, eu aliquet nibh. Nulla at vehicula elit."
+            android:id="@+id/storyText"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.75"
+            android:textSize="24sp"
+            android:textAlignment="center"/>
+    </ScrollView>
 </LinearLayout>

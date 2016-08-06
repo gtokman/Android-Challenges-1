@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mNumberOfGuesses--;
             checkNumberOfGuesses();
         }
-        
+
     }
 
     private void checkNumberOfGuesses() {

@@ -48,4 +48,9 @@ public class Person {
     public int getPicture() {
         return mPicture;
     }
+
+    @Override
+    public String toString() {
+        return mFirstName + " " + mLastName;
+    }
 }

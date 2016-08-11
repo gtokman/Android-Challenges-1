@@ -22,7 +22,7 @@ public class People {
         people.add(new Person("Jake", "Bryant", "11/07/95", R.drawable.person7));
         people.add(new Person("Aaron", "Pepi", "11/07/54", R.drawable.person8));
         people.add(new Person("Jame", "Juan", "11/07/96", R.drawable.person9));
-        people.add(new Person("Jimmie", "Jameson", "11/07/98", R.drawable.person10));
+        people.add(new Person("Jim", "James", "11/07/98", R.drawable.person10));
 
         return people;
     }

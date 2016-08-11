@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">TokmanGary_CE06</string>
+
+    <string-array name="typeOfLayout">
+        <item name="list_view">List View</item>
+        <item name="grid_view">Grid View</item>
+    </string-array>
+
+    <string-array name="typeOfAdapter">
+        <item name="array_adapter">Array Adapter</item>
+        <item name="simple_adapter">Simple Adapter</item>
+        <item name="base_adapter">Base Adapter</item>
+    </string-array>
+
+
+</resources>

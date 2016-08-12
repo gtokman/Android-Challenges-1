@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         mProfileImage = (ImageView) findViewById(R.id.profileImage);
         mListView = (ListView) findViewById(R.id.listView);
 
-
+        // Check orientation
         int orientation = getResources().getConfiguration().orientation;
 
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -59,16 +59,14 @@ public class MainActivity extends AppCompatActivity {
             // Set List
             ArrayAdapter<Person> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Students.getStudents());
             mListView.setAdapter(arrayAdapter);
+            handleSelectedPerson(0);
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     handleSelectedPerson(i);
                 }
             });
-
-
         }
-
     }
 
     private void handleSelectedPerson(int selectedIndex) {
@@ -79,6 +77,5 @@ public class MainActivity extends AppCompatActivity {
         mProfileImage.setImageResource(person.getProfileImage());
         mName.setText(person.getName());
         mAge.setText("Age: " + person.getAge());
-
     }
 }

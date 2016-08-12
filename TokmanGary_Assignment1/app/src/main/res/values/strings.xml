@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">TokmanGary_Assignment1</string>
+
+   <string-array name="peopleLayout">
+       <item>Sean Fowler</item>
+       <item>Donald Simmons</item>
+       <item>Tyler Alexander</item>
+       <item>Roy Elliott</item>
+       <item>Henry Diaz</item>
+       <item>Shirley Fox</item>
+       <item>Judith Cox</item>
+       <item>Karen Tucker</item>
+       <item>Barbara Sanchez</item>
+       <item>Margaret Adams</item>
+   </string-array>
 </resources>

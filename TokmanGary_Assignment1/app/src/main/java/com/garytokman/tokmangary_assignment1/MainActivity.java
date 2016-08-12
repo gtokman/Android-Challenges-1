@@ -1,13 +1,16 @@
 package com.garytokman.tokmangary_assignment1;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.garytokman.tokmangary_assignment1.model.Person;
+import com.garytokman.tokmangary_assignment1.model.Students;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,10 +31,16 @@ public class MainActivity extends AppCompatActivity {
         mAge = (TextView) findViewById(R.id.ageLabel);
         mProfileImage = (ImageView) findViewById(R.id.profileImage);
 
-        mSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        // Listener
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 handleSelectedPerson(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
     }
@@ -39,11 +48,11 @@ public class MainActivity extends AppCompatActivity {
     private void handleSelectedPerson(int selectedIndex) {
         Log.d(TAG, "handleSelectedPerson() called with: " + "selectedIndex = [" + selectedIndex + "]");
 
-        switch (selectedIndex) {
-            case 0:
-                break;
-            default:
-                break;
-        }
+        Person person = Students.getStudents().get(selectedIndex);
+        // Set UI
+        mProfileImage.setImageResource(person.getProfileImage());
+        mName.setText(person.getName());
+        mAge.setText("Age: " + person.getAge());
+
     }
 }

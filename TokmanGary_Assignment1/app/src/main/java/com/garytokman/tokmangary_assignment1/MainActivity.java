@@ -1,11 +1,14 @@
 package com.garytokman.tokmangary_assignment1;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -19,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mName;
     private TextView mAge;
     private ImageView mProfileImage;
+    private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,19 +34,41 @@ public class MainActivity extends AppCompatActivity {
         mName = (TextView) findViewById(R.id.nameLabel);
         mAge = (TextView) findViewById(R.id.ageLabel);
         mProfileImage = (ImageView) findViewById(R.id.profileImage);
+        mListView = (ListView) findViewById(R.id.listView);
 
-        // Listener
-        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                handleSelectedPerson(i);
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+        int orientation = getResources().getConfiguration().orientation;
 
-            }
-        });
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Log.i(TAG, "onCreate: portrait");
+
+            // Listener
+            mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    handleSelectedPerson(i);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+        } else {
+            Log.i(TAG, "onCreate: landscape");
+            // Set List
+            ArrayAdapter<Person> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Students.getStudents());
+            mListView.setAdapter(arrayAdapter);
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    handleSelectedPerson(i);
+                }
+            });
+
+
+        }
+
     }
 
     private void handleSelectedPerson(int selectedIndex) {

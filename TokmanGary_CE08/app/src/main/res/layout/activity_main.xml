@@ -24,7 +24,10 @@
             android:layout_weight="0.4"
             android:hint="00"
             android:textSize="80sp"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:maxLength="2"
+            android:inputType="number"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,7 +36,8 @@
             android:id="@+id/textView"
             android:layout_weight="0.1"
             android:textSize="50sp"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            />
 
         <EditText
             android:layout_width="wrap_content"
@@ -42,7 +46,9 @@
             android:layout_weight="0.4"
             android:hint="00"
             android:textSize="80sp"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:maxLength="2"
+            android:inputType="number"/>
     </LinearLayout>
 
     <LinearLayout

@@ -12,14 +12,17 @@ import android.widget.Toast;
 
 import com.garytokman.tokmangary_ce08.model.Timer;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, Timer.UpdateTimer {
+
+
 
     private static final String TAG = "MainActivity";
-    private EditText mMinutesTextField;
-    private EditText mSecondsTextField;
+    static public EditText mMinutesTextField;
+    static public EditText mSecondsTextField;
     private Button mStartTimerButton;
     private Button mStopTimerButton;
     private Timer mTimer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +45,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.start_button:
                 Log.d(TAG, "onClick: start button");
 
-                if (!checkFields(mMinutesTextField) && !checkFields(mSecondsTextField)) {
+                if (!checkFields(mMinutesTextField) || !checkFields(mSecondsTextField)) {
                     // Do something
-                    int minutes = Integer.parseInt(mMinutesTextField.getText().toString());
-                    int seconds = Integer.parseInt(mSecondsTextField.getText().toString());
+                    long minutes =  Long.parseLong(mMinutesTextField.getText().toString());
+                    long seconds =  Long.parseLong(mSecondsTextField.getText().toString());
 
                     mTimer = new Timer(this, minutes, seconds);
-                    mTimer.execute();
+                    mTimer.execute((minutes * 60000) + (seconds * 1000));
+                    updateEditText(String.valueOf(mTimer.getMinutes()), String.valueOf(mTimer.getSeconds()));
                 } else {
                     Toast.makeText(MainActivity.this, R.string.check_fields_error, Toast.LENGTH_SHORT).show();
                 }
@@ -56,12 +60,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.stop_button:
                 mTimer.cancel(true);
+                updateEditText("", "");
                 alertUser("Alert", "You canceled the timer").show();
                 Log.d(TAG, "onClick: stop button");
                 break;
             default:
                 break;
         }
+    }
+
+    private void updateEditText(String minText, String secText) {
+        mMinutesTextField.setText(minText);
+        mSecondsTextField.setText(secText);
     }
 
     private boolean checkFields(EditText editText) {
@@ -81,5 +91,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         return alert;
+    }
+
+
+    @Override
+    public void getCurrentTime(long minutes, long seconds) {
+        updateEditText(String.valueOf(minutes), String.valueOf(seconds));
     }
 }

@@ -1,20 +1,18 @@
 package com.garytokman.tokmangary_ce09.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.garytokman.tokmangary_ce09.R;
+import com.garytokman.tokmangary_ce09.model.Book;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by gtokman1 on 8/18/16.
@@ -22,9 +20,9 @@ import butterknife.ButterKnife;
 public class GridViewAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List mJsonData;
+    private List<Book> mJsonData;
 
-    public GridViewAdapter(Context context, List jsonData) {
+    public GridViewAdapter(Context context, List<Book> jsonData) {
         mContext = context;
         mJsonData = jsonData;
     }
@@ -53,7 +51,7 @@ public class GridViewAdapter extends BaseAdapter {
 
             view = LayoutInflater.from(mContext).inflate(R.layout.grid_items, null);
 
-            viewHolder = new ViewHolder(mContext);
+            viewHolder = new ViewHolder(view);
 
             // Set for reuse
             view.setTag(viewHolder);
@@ -63,21 +61,22 @@ public class GridViewAdapter extends BaseAdapter {
         }
 
         // Set UI
+        viewHolder.mBookTitle.setText(mJsonData.get(i).getTitle());
+        Picasso.with(mContext).load(mJsonData.get(i).getImage()).into(viewHolder.mBookImage);
 
-
-
-        return null;
+        return view;
     }
 
     private static class ViewHolder {
-        @BindView(R.id.book_image)
+
         ImageView mBookImage;
+        TextView mBookTitle;
 
-        @BindView(R.id.book_text_view)
-        EditText mBookTitle;
+        public ViewHolder(View view) {
 
-        public ViewHolder(Context context) {
-            ButterKnife.bind((Activity) context);
+            mBookTitle = (TextView) view.findViewById(R.id.book_text_view);
+            mBookImage = (ImageView) view.findViewById(R.id.book_image);
+
         }
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.garytokman.tokmangary_ce09.adapters.GridViewAdapter;
 import com.garytokman.tokmangary_ce09.client.APITask;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements APITask.LoadUIWit
             mAPITask = new APITask(this);
             final String url = "https://www.googleapis.com/books/v1/volumes?q=android";
             mAPITask.execute(url);
+        } else {
+            Toast.makeText(MainActivity.this, "Please check your network", Toast.LENGTH_LONG).show();
         }
 
         mBooks = new ArrayList<>();

@@ -1,5 +1,6 @@
 package com.garytokman.tokmangary_ce09.client;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -25,6 +26,7 @@ public class APITask extends AsyncTask<String, Integer, String> {
     // Fields
     private Context mContext;
     private LoadUIWithData mLoadUIWithData;
+    private ProgressDialog mProgressDialog;
 
     public APITask(Context context) {
         mContext = context;
@@ -34,6 +36,12 @@ public class APITask extends AsyncTask<String, Integer, String> {
     protected void onPreExecute() {
         super.onPreExecute();
 
+        // Progress
+        mProgressDialog = new ProgressDialog(mContext);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setMessage("Loading....");
+        mProgressDialog.show();
+
         // Set the delegate
         if (mContext instanceof LoadUIWithData) {
             mLoadUIWithData = (LoadUIWithData) mContext;
@@ -41,35 +49,6 @@ public class APITask extends AsyncTask<String, Integer, String> {
             throw new IllegalArgumentException("Could not set the delegate for interface");
         }
     }
-
-    /*
-        try {
-            // Get url
-            URL url = new URL(strings[0]);
-            // Open connections
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-            try {
-                // Connect
-                connection.connect();
-                // Serializable data
-                InputStream inputStream = connection.getInputStream();
-
-                String data = IOUtils.toString(inputStream);
-                inputStream.close();
-
-                return data;
-            } catch (IOException e) {
-                e.printStackTrace();
-
-            } finally {
-                 connection.disconnect();
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
 
     @Override
     protected String doInBackground(String... strings) {
@@ -103,13 +82,9 @@ public class APITask extends AsyncTask<String, Integer, String> {
     }
 
     @Override
-    protected void onProgressUpdate(Integer... values) {
-        super.onProgressUpdate(values);
-    }
-
-    @Override
     protected void onPostExecute(String data) {
         super.onPostExecute(data);
+        mProgressDialog.hide();
 
         // Send data to main
         try {
@@ -117,10 +92,5 @@ public class APITask extends AsyncTask<String, Integer, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    protected void onCancelled() {
-        super.onCancelled();
     }
 }

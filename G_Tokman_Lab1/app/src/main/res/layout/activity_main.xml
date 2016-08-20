@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.garytokman.g_tokman_lab1.MainActivity"
-    android:weightSum="1">
+    android:weightSum="4">
 
     <TextView
         android:layout_width="match_parent"
@@ -29,28 +29,40 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25">
+            android:layout_weight="1">
 
             <Button
                 android:text="@string/_7"
                 android:id="@+id/button_7"
-                style="@style/NumbersTheme"/>
+                android:theme="@style/NumbersTheme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"/>
 
             <Button
                 android:text="@string/_8"
                 android:id="@+id/button_8"
-                style="@style/NumbersTheme"/>
+                android:theme="@style/NumbersTheme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"/>
 
             <Button
 
                 android:text="@string/_9"
                 android:id="@+id/button_9"
-                style="@style/NumbersTheme"/>
+                android:theme="@style/NumbersTheme"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_weight="0.25"/>
 
             <Button
                 android:text="@string/divide"
                 android:id="@+id/button_15"
-                style="@style/OperationsTheme"/>
+                android:theme="@style/OperationsTheme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"/>
 
         </LinearLayout>
 
@@ -58,29 +70,41 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25">
+            android:layout_weight="1">
 
             <Button
 
                 android:text="@string/_4"
                 android:id="@+id/button_4"
-               style="@style/NumbersTheme"/>
+                android:layout_weight="0.25"
+                android:theme="@style/NumbersTheme"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"/>
 
             <Button
-                style="@style/NumbersTheme"
+                android:theme="@style/NumbersTheme"
                 android:text="@string/_5"
-                android:id="@+id/button_5"/>
+                android:layout_weight="0.25"
+                android:id="@+id/button_5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
 
             <Button
                 android:text="@string/_6"
                 android:id="@+id/button_6"
-                style="@style/NumbersTheme"/>
+                android:layout_weight="0.25"
+                android:theme="@style/NumbersTheme"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"/>
 
             <Button
                 android:text="@string/multi_text"
                 android:id="@+id/button_14"
-                style="@style/OperationsTheme"/>
+                android:layout_weight="0.25"
+                android:theme="@style/OperationsTheme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
 
@@ -88,58 +112,79 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25">
+            android:layout_weight="1">
 
             <Button
                 android:text="@string/_1"
                 android:id="@+id/button_1"
-                style="@style/NumbersTheme"/>
+                android:layout_weight="0.25"
+                android:theme="@style/NumbersTheme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
             <Button
 
                 android:text="@string/_2"
                 android:id="@+id/button_2"
-                style="@style/NumbersTheme"/>
+                android:layout_weight="0.25"
+                android:theme="@style/NumbersTheme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
             <Button
                 android:text="@string/_3"
                 android:id="@+id/button_3"
-                style="@style/NumbersTheme"/>
+                android:layout_weight="0.25"
+                android:theme="@style/NumbersTheme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
             <Button
-                style="@style/OperationsTheme"
+                android:theme="@style/OperationsTheme"
                 android:text="@string/minus"
                 android:id="@+id/button_13"
-              />
+                android:layout_weight="0.25"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"/>
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25">
+            android:layout_weight="1">
 
             <Button
                 android:text="@string/clear_text"
                 android:id="@+id/button_10"
-                style="@style/OperationsTheme"/>
+                android:theme="@style/clearTheme"
+                android:layout_weight="0.25"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
             <Button
                 android:text="@string/_0"
                 android:id="@+id/button_0"
-                style="@style/NumbersTheme"/>
+                android:layout_weight="0.25"
+                android:theme="@style/NumbersTheme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
             <Button
-                style="@style/OperationsTheme"
+                android:theme="@style/equalsTheme"
                 android:text="@string/equals_text"
                 android:id="@+id/button_11"
-                />
+                android:layout_weight="0.25"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
             <Button
-                style="@style/OperationsTheme"
+                android:theme="@style/OperationsTheme"
                 android:text="@string/plus_text"
+                android:layout_weight="0.25"
                 android:id="@+id/button_12"
-              />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

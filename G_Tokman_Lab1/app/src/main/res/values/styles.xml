@@ -6,25 +6,26 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorButtonNormal">@color/zircon</item>
-        <item name="android:colorBackground">@color/white_smoke</item>
-        <item name="android:fillColor">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="NumbersTheme" parent="AppTheme">
-
-
+    <style name="NumbersTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="android:theme">@style/AppTheme</item>
         <item name="android:textColor">@color/buttonTextColor</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_weight">0.25</item>
         <item name="android:textSize">40sp</item>
+        <item name="android:colorButtonNormal">@color/zircon</item>
     </style>
 
     <style name="OperationsTheme" parent="NumbersTheme">
+        <item name="android:colorButtonNormal">@color/white_smoke</item>
+    </style>
 
+    <style name="clearTheme" parent="NumbersTheme">
+        <item name="android:colorButtonNormal">@color/west_side</item>
+    </style>
+
+    <style name="equalsTheme" parent="NumbersTheme">
+        <item name="android:colorButtonNormal">@color/navy_blue</item>
     </style>
 
 </resources>

@@ -7,6 +7,8 @@
     <color name="operationButton">@color/material_grey_100</color>
     <color name="zircon">#E0E0E0</color>
     <color name="white_smoke">#F5F5F5</color>
+    <color name="west_side">#FC970B</color>
+    <color name="navy_blue">#1E7FE2</color>
 
 
     <color name="buttonTextColor">@color/bright_foreground_disabled_material_light</color>

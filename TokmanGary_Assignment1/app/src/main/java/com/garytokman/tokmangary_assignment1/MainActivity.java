@@ -6,12 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.garytokman.tokmangary_assignment1.adapter.CustomAdapter;
 import com.garytokman.tokmangary_assignment1.model.Person;
 import com.garytokman.tokmangary_assignment1.model.Students;
 
@@ -57,8 +57,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.i(TAG, "onCreate: landscape");
             // Set List
-            ArrayAdapter<Person> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Students.getStudents());
-            mListView.setAdapter(arrayAdapter);
+//            ArrayAdapter<Person> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Students.getStudents());
+            CustomAdapter customAdapter = new CustomAdapter(this, Students.getStudents());
+            mListView.setAdapter(customAdapter);
             handleSelectedPerson(0);
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override

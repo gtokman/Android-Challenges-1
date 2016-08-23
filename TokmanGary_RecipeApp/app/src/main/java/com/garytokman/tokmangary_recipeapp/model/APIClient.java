@@ -1,9 +1,11 @@
 package com.garytokman.tokmangary_recipeapp.model;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,11 +18,12 @@ import java.net.URL;
 public class APIClient extends AsyncTask<String, Integer, String> {
 
     public interface LoadRecipeDelegate {
-        public void getJsonData(String json);
+        public void getJsonData(String json) throws JSONException;
     }
 
     private Context mContext;
     private LoadRecipeDelegate mRecipeDelegate;
+    private ProgressDialog mProgressDialog;
 
     public APIClient(Context context) {
         mContext = context;
@@ -37,6 +40,11 @@ public class APIClient extends AsyncTask<String, Integer, String> {
             throw new IllegalArgumentException("Could not init delegate");
         }
         // Create a loading dialog
+        mProgressDialog = new ProgressDialog(mContext);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setMessage("Loading....");
+        mProgressDialog.show();
+
     }
 
     @Override
@@ -73,7 +81,12 @@ public class APIClient extends AsyncTask<String, Integer, String> {
     protected void onPostExecute(String data) {
         super.onPostExecute(data);
 
-        // Notifiy delegate
-        mRecipeDelegate.getJsonData(data);
+        mProgressDialog.hide();
+        // Notify delegate
+        try {
+            mRecipeDelegate.getJsonData(data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

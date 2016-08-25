@@ -6,18 +6,18 @@ package com.garytokman.tokmangary_assignment2.model;
 public class Photo {
 
     // Fields
-    private String mTitle;
+    private int mLikes;
     private String mName;
     private String mImageUrlSmall;
 
-    public Photo(String title, String name, String imageUrlSmall) {
-        mTitle = title;
+    public Photo(int title, String name, String imageUrlSmall) {
+        mLikes = title;
         mName = name;
         mImageUrlSmall = imageUrlSmall;
     }
 
-    public String getTitle() {
-        return mTitle;
+    public int getLikes() {
+        return mLikes;
     }
 
     public String getName() {
@@ -30,6 +30,6 @@ public class Photo {
 
     @Override
     public String toString() {
-        return mTitle + " by " + mName;
+        return "Taken by: " + mName + "\n Number of likes: " + mLikes;
     }
 }

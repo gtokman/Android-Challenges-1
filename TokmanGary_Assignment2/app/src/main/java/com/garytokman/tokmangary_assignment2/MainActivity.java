@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.garytokman.tokmangary_assignment2.model.APIClient;
 import com.garytokman.tokmangary_assignment2.model.Photo;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
     private ListView mListView;
     private ImageView mImageView;
     private TextView mAuthorTextView;
-    private TextView mTitleTextView;
+    private TextView mLikesTextView;
     private APIClient mAPIClient;
     private List<Photo> mPhotoList;
 
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
             mListView = (ListView) findViewById(R.id.listView);
             mImageView = (ImageView) findViewById(R.id.detail_imageView);
             mAuthorTextView = (TextView) findViewById(R.id.author_text_view);
-            mTitleTextView = (TextView) findViewById(R.id.title_text_view);
+            mLikesTextView = (TextView) findViewById(R.id.likes_text_view);
             mPhotoList = new ArrayList<>();
             mAPIClient = new APIClient(this);
 
@@ -72,18 +74,25 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
                 }
             });
 
-            mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                    // i is the position selected
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Log.d(TAG, "onItemClick: touch");
+                    handleSelectedPhoto(i);
                 }
             });
         }
+    }
+
+    private void handleSelectedPhoto(int position) {
+
+        // Get selected item
+        Photo selectedPhoto = mPhotoList.get(position);
+
+        // Update UI
+        mAuthorTextView.setText("Taken by: " + selectedPhoto.getName());
+        mLikesTextView.setText("Number of likes: " + selectedPhoto.getLikes());
+        Picasso.with(this).load(selectedPhoto.getImageUrlSmall()).into(mImageView);
     }
 
     @Override
@@ -94,14 +103,23 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
 
         for (int i = 0; i < jsonArray.length(); i++) {
 
+            int likes = jsonArray.getJSONObject(i).getInt("likes");
             String name = jsonArray.getJSONObject(i).getJSONObject("user").getString("name");
             String imageUrlSmall = jsonArray.getJSONObject(i).getJSONObject("urls").getString("small");
-            String title = jsonArray.getJSONObject(i)
-                    .getJSONArray("categories").getJSONObject(i).getString("title");
+
 
             Log.d(TAG, "getJsonData() returned: " + "name: "
-                    + name + " imageUrlSmall: " + imageUrlSmall + " title: " + title);
+                    + name + " imageUrlSmall: " + imageUrlSmall + " likes: " + likes);
 
+            // Add to model
+            mPhotoList.add(new Photo(likes, name, imageUrlSmall));
         }
+
+        updateUI();
+    }
+
+    private void updateUI() {
+        ArrayAdapter<Photo> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mPhotoList);
+        mListView.setAdapter(arrayAdapter);
     }
 }

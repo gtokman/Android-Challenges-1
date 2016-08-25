@@ -1,7 +1,7 @@
 package com.garytokman.tokmangary_assignment2;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.garytokman.tokmangary_assignment2.model.APIClient;
+import com.garytokman.tokmangary_assignment2.model.Photo;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
     private TextView mAuthorTextView;
     private TextView mTitleTextView;
     private APIClient mAPIClient;
-    private List mPhotoList;
+    private List<Photo> mPhotoList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
             mImageView = (ImageView) findViewById(R.id.detail_imageView);
             mAuthorTextView = (TextView) findViewById(R.id.author_text_view);
             mTitleTextView = (TextView) findViewById(R.id.title_text_view);
-            mPhotoList = new ArrayList();
+            mPhotoList = new ArrayList<>();
             mAPIClient = new APIClient(this);
 
             // Listeners
@@ -83,9 +87,21 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
     }
 
     @Override
-    public void getJsonData(String json) {
+    public void getJsonData(String json) throws JSONException {
         Log.d(TAG, "getJsonData() called with: " + "json = [" + json + "]");
 
+        JSONArray jsonArray = new JSONArray(json);
 
+        for (int i = 0; i < jsonArray.length(); i++) {
+
+            String name = jsonArray.getJSONObject(i).getJSONObject("user").getString("name");
+            String imageUrlSmall = jsonArray.getJSONObject(i).getJSONObject("urls").getString("small");
+            String title = jsonArray.getJSONObject(i)
+                    .getJSONArray("categories").getJSONObject(i).getString("title");
+
+            Log.d(TAG, "getJsonData() returned: " + "name: "
+                    + name + " imageUrlSmall: " + imageUrlSmall + " title: " + title);
+
+        }
     }
 }

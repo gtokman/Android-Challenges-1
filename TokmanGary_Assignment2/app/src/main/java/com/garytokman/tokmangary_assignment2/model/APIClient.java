@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +18,7 @@ import java.net.URL;
 public class APIClient extends AsyncTask<String, Integer, String> {
 
     public interface LoadAPIData {
-        public void getJsonData(String json);
+        public void getJsonData(String json) throws JSONException;
     }
 
     private Context mContext;
@@ -86,6 +87,10 @@ public class APIClient extends AsyncTask<String, Integer, String> {
         mProgressDialog.hide();
 
         // Notify delegate
-        delegate.getJsonData(json);
+        try {
+            delegate.getJsonData(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

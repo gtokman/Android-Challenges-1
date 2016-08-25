@@ -2,6 +2,7 @@ package com.garytokman.tokmangary_assignment2;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -10,10 +11,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.garytokman.tokmangary_assignment2.model.APIClient;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements APIClient.LoadAPIData {
 
+    private static final String TAG = "MainActivity";
     // Fields
     private EditText mSearchEditText;
     private Button mSearchButton;
@@ -21,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mImageView;
     private TextView mAuthorTextView;
     private TextView mTitleTextView;
+    private APIClient mAPIClient;
     private List mPhotoList;
 
     @Override
@@ -40,12 +46,21 @@ public class MainActivity extends AppCompatActivity {
             mImageView = (ImageView) findViewById(R.id.detail_imageView);
             mAuthorTextView = (TextView) findViewById(R.id.author_text_view);
             mTitleTextView = (TextView) findViewById(R.id.title_text_view);
+            mPhotoList = new ArrayList();
+            mAPIClient = new APIClient(this);
 
             // Listeners
             mSearchButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // Get text // Pass the URL to Async task
+                    String userSearch = mSearchEditText.getText().toString();
+
+                    if (userSearch.isEmpty()) {
+                        // Toast
+                        
+                    }
+
                 }
             });
 
@@ -64,5 +79,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public void getJsonData(String json) {
+        Log.d(TAG, "getJsonData() called with: " + "json = [" + json + "]");
     }
 }

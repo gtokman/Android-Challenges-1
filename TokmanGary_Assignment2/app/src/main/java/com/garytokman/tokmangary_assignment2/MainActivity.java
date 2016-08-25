@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.garytokman.tokmangary_assignment2.model.APIClient;
 
@@ -18,8 +19,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements APIClient.LoadAPIData {
 
-    private static final String TAG = "MainActivity";
     // Fields
+    private static final String TAG = "MainActivity";
     private EditText mSearchEditText;
     private Button mSearchButton;
     private ListView mListView;
@@ -54,19 +55,22 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
                 @Override
                 public void onClick(View view) {
                     // Get text // Pass the URL to Async task
-                    String userSearch = mSearchEditText.getText().toString();
+                    String userSearch = mSearchEditText.getText().toString().toLowerCase().trim();
 
                     if (userSearch.isEmpty()) {
                         // Toast
-                        
+                        Toast.makeText(MainActivity.this, "Please enter a valid photo name", Toast.LENGTH_SHORT).show();
+                    } else {
+                        String clientId = "da097c2e80660d684a125567880617a6418021c604cc84264ecfaa151169e91b";
+                        String url = "https://api.unsplash.com/photos/search?client_id=" + clientId + "&query=" + userSearch;
+                        mAPIClient.execute(url);
                     }
-
                 }
             });
 
             mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                     // i is the position selected
                 }
 
@@ -75,14 +79,13 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
 
                 }
             });
-
         }
-
-
     }
 
     @Override
     public void getJsonData(String json) {
         Log.d(TAG, "getJsonData() called with: " + "json = [" + json + "]");
+
+
     }
 }

@@ -55,27 +55,9 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
             mAuthorTextView = (TextView) findViewById(R.id.author_text_view);
             mLikesTextView = (TextView) findViewById(R.id.likes_text_view);
             mPhotoList = new ArrayList<>();
-            mAPIClient = new APIClient(this);
 
             // Listeners
-            mSearchButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // Get text // Pass the URL to Async task
-                    String userSearch = mSearchEditText.getText().toString().toLowerCase().trim();
-
-                    if (userSearch.isEmpty()) {
-                        // Toast
-                        Toast.makeText(MainActivity.this, "Please enter a valid photo name", Toast.LENGTH_SHORT).show();
-                    } else {
-                        hideKeyBoard();
-                        mPhotoList.clear();
-                        String clientId = "da097c2e80660d684a125567880617a6418021c604cc84264ecfaa151169e91b";
-                        String url = "https://api.unsplash.com/photos/search?client_id=" + clientId + "&query=" + userSearch;
-                        mAPIClient.execute(url);
-                    }
-                }
-            });
+            mSearchButton.setOnClickListener(buttonClickListener);
 
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -84,12 +66,34 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
                     handleSelectedPhoto(i);
                 }
             });
+
         } else {
             // Portrait placeholder
             ImageView placeHolder = (ImageView) findViewById(R.id.placeholder_image_view);
             placeHolder.setImageResource(R.drawable.error);
         }
     }
+
+    View.OnClickListener buttonClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            // Get text // Pass the URL to Async task
+            String userSearch = mSearchEditText.getText().toString().toLowerCase().trim();
+
+            if (userSearch.isEmpty()) {
+                // Toast
+                Toast.makeText(MainActivity.this, "Please enter a valid photo name", Toast.LENGTH_SHORT).show();
+            } else {
+                hideKeyBoard();
+                mSearchEditText.getText().clear();
+                mPhotoList.clear();
+                mAPIClient = new APIClient(MainActivity.this);
+                String clientId = "da097c2e80660d684a125567880617a6418021c604cc84264ecfaa151169e91b";
+                String url = "https://api.unsplash.com/photos/search?client_id=" + clientId + "&query=" + userSearch;
+                mAPIClient.execute(url);
+            }
+        }
+    };
 
     private void handleSelectedPhoto(int position) {
 
@@ -122,8 +126,12 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
             // Add to model
             mPhotoList.add(new Photo(likes, name, imageUrlSmall));
         }
-
-        updateUI();
+        if (mPhotoList.isEmpty()) {
+            mImageView.setImageResource(R.drawable.error);
+            Toast.makeText(MainActivity.this, "Could not find that image, try something else", Toast.LENGTH_LONG).show();
+        } else{
+            updateUI();
+        }
     }
 
     private void updateUI() {

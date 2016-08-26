@@ -44,7 +44,7 @@ public class APIClient extends AsyncTask<String, Integer, String> {
         // Create a loading dialog
         mProgressDialog = new ProgressDialog(mContext);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        mProgressDialog.setMessage("Loading....");
+        mProgressDialog.setMessage("loading....");
         mProgressDialog.show();
     }
 

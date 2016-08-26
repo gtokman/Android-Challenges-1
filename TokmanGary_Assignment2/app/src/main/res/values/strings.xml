@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TokmanGary_Assignment2</string>
+    <string name="rotate_the_phone">Rotate the phone...</string>
+    <string name="search_a_nature_image_name">Search a nature image name</string>
 </resources>

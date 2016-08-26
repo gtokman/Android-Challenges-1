@@ -10,4 +10,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.garytokman.tokmangary_assignment2.MainActivity">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/placeholder_image_view"
+        tools:src="@drawable/loading"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/editText"
+        android:layout_below="@+id/placeholder_image_view"
+        android:layout_centerHorizontal="true"
+        android:textSize="24sp"
+        android:text="@string/rotate_the_phone"/>
 </RelativeLayout>

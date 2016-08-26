@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -67,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
                         // Toast
                         Toast.makeText(MainActivity.this, "Please enter a valid photo name", Toast.LENGTH_SHORT).show();
                     } else {
+                        hideKeyBoard();
+                        mPhotoList.clear();
                         String clientId = "da097c2e80660d684a125567880617a6418021c604cc84264ecfaa151169e91b";
                         String url = "https://api.unsplash.com/photos/search?client_id=" + clientId + "&query=" + userSearch;
                         mAPIClient.execute(url);
@@ -81,6 +84,10 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
                     handleSelectedPhoto(i);
                 }
             });
+        } else {
+            // Portrait placeholder
+            ImageView placeHolder = (ImageView) findViewById(R.id.placeholder_image_view);
+            placeHolder.setImageResource(R.drawable.error);
         }
     }
 
@@ -92,7 +99,8 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
         // Update UI
         mAuthorTextView.setText("Taken by: " + selectedPhoto.getName());
         mLikesTextView.setText("Number of likes: " + selectedPhoto.getLikes());
-        Picasso.with(this).load(selectedPhoto.getImageUrlSmall()).into(mImageView);
+        Picasso.with(this).load(selectedPhoto.getImageUrlSmall())
+                .placeholder(R.drawable.loading).error(R.drawable.error).into(mImageView);
     }
 
     @Override
@@ -121,5 +129,14 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
     private void updateUI() {
         ArrayAdapter<Photo> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mPhotoList);
         mListView.setAdapter(arrayAdapter);
+        handleSelectedPhoto(0);
+    }
+
+    private void hideKeyBoard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+
+        if(inputMethodManager.isAcceptingText()) { // verify if the soft keyboard is open
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
     }
 }

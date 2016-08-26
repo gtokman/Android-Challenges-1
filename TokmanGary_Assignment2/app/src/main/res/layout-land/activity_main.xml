@@ -19,23 +19,33 @@
         android:layout_weight="0.50"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/search_edit_text"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/search_a_nature_image_name"
-            android:imeOptions="flagNoExtractUi"
-            android:maxLines="1"
-            android:maxLength="15"
-            />
+            android:weightSum="1.0">
 
-        <Button
-            android:id="@+id/search_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/search"
-            android:textColor="#fff"/>
+            <EditText
+                android:id="@+id/search_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/search_a_nature_image_name"
+                android:imeOptions="flagNoExtractUi"
+                android:maxLines="1"
+                android:maxLength="15"
+                android:layout_weight="0.6"
+                />
+
+            <Button
+                android:id="@+id/search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/search"
+                android:textColor="#fff"
+                android:layout_weight="0.4"/>
+
+        </LinearLayout>
 
         <ListView
             android:id="@+id/listView"
@@ -43,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"/>
+
     </LinearLayout>
 
     <LinearLayout

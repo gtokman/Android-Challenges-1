@@ -1,5 +1,7 @@
 package com.garytokman.tokmangary_assignment2;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -80,9 +82,9 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
             // Get text // Pass the URL to Async task
             String userSearch = mSearchEditText.getText().toString().toLowerCase().trim();
 
-            if (userSearch.isEmpty()) {
+            if (userSearch.isEmpty() || !isNetworkOn()) {
                 // Toast
-                Toast.makeText(MainActivity.this, "Please enter a valid photo name", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Please enter a valid photo name or check network", Toast.LENGTH_SHORT).show();
             } else {
                 hideKeyBoard();
                 mSearchEditText.getText().clear();
@@ -129,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
         if (mPhotoList.isEmpty()) {
             mImageView.setImageResource(R.drawable.error);
             Toast.makeText(MainActivity.this, "Could not find that image, try something else", Toast.LENGTH_LONG).show();
-        } else{
+        } else {
             updateUI();
         }
     }
@@ -143,8 +145,19 @@ public class MainActivity extends AppCompatActivity implements APIClient.LoadAPI
     private void hideKeyBoard() {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
-        if(inputMethodManager.isAcceptingText()) { // verify if the soft keyboard is open
+        if (inputMethodManager.isAcceptingText()) { // verify if the soft keyboard is open
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
+    }
+
+    private boolean isNetworkOn() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+        boolean isNetworkOn = false;
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+            isNetworkOn = true;
+        }
+        return isNetworkOn;
     }
 }
